@@ -16,11 +16,7 @@
   + KaraokeTextLiner > KaraokeTextMaterial
 
 あとは，TextMeshのTextを適当に入れてKaraokeTextLinerのLerpを変化させれば動きます．
-
-
-## Known Issue
-
-- 回転させると色変化の範囲が合わなくなる
+Textの変更にはKaraokeTextLiner.Textを経由してください．
 
 ## Using
 
