@@ -35,6 +35,7 @@
 				float4 vertex : SV_POSITION;
 				fixed4 color : COLOR;
 				float2 texcoord : TEXCOORD0;
+				float2 position : TEXCOORD1;
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
@@ -53,19 +54,21 @@
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.color = v.color;
-				if (v.vertex.x < lerp(_Start, _End, _Lerp)) {
-					o.color *= _PastColor;
-				}
-				else {
-					o.color *= _BaseColor;
-				}
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _FontTex);
+				o.position = v.vertex;
 				return o;
 			}
 
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = i.color;
+				if (i.position.x < lerp(_Start, _End, _Lerp)) {
+					col *= _PastColor;
+				}
+				else {
+					col *= _BaseColor;
+				}
+
 				col.a *= tex2D(_FontTex, i.texcoord).a;
 				return col;
 			}
